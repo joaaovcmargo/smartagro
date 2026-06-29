@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartAgro Premium | Portal Integrado & Inteligência Agrícola</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="header-container">
+            <div class="logo-area">
+                <h1>Smart<span>Agro</span></h1>
+                <p class="slogan">inteligência agrícola regionalizada</p>
+            </div>
+            
+            <nav class="nav-menu">
+                <a href="#home" class="active">Home</a>
+                <a href="#dashboard">Clima & Cotações</a>
+                <a href="#noticias-principais">Canal Rural</a>
+                <a href="#feed-cooperativas">Cooperativas & Culturas</a>
+                <a href="#problemas">Manejo</a>
+                <a href="#sustentabilidade">Sustentabilidade</a>
+                <a href="#tecnologia">Tecnologia</a>
+            </nav>
+
+            <div class="header-actions">
+                <div class="search-box">
+                    <input type="text" id="news-search" placeholder="Filtrar por cultura, cooperativa ou estado...">
+                    <i class="fas fa-search"></i>
+                </div>
+                <button id="theme-toggle" aria-label="Mudar tema">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <section id="home" class="hero-section">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <span class="location-badge" id="hero-location-badge"><i class="fas fa-map-marker-alt"></i> Localizando sua região...</span>
+            <h2>Tecnologia e inteligência para decisões no campo</h2>
+            <p>Monitore o mercado regionalizado, acompanhe cotações do Agrolink, dados da NYSE e as principais manchetes das cooperativas do PR, SC, RS, SP, MS, MT, GO e MG.</p>
+            <div class="hero-buttons">
+                <a href="#dashboard" class="btn btn-primary"><i class="fas fa-chart-pie"></i> Painel de Mercado</a>
+                <a href="#noticias-principais" class="btn btn-secondary"><i class="fas fa-newspaper"></i> Canal Rural Destaques</a>
+                <a href="#feed-cooperativas" class="btn btn-light"><i class="fas fa-seedling"></i> Multi-Culturas</a>
+            </div>
+        </div>
+    </section>
+
+    <div class="ticker-wrapper">
+        <div class="ticker-content" id="ticker-prices">
+            <span><i class="fas fa-sync-alt fa-spin"></i> Sincronizando cotações regionais com Agrolink...</span>
+        </div>
+    </div>
+
+    <main class="container">
+
+        <section id="dashboard" class="dashboard-section">
+            <h2 class="section-title">Dashboard Operacional, Climático & Comercial</h2>
+            
+            <div class="dashboard-grid">
+                <div class="dash-card glass-effect" id="clima-card">
+                    <div class="card-header">
+                        <h3><i class="fas fa-cloud-sun-rain"></i> Clima na sua Região</h3>
+                        <span class="geo-status" id="geo-text">Detectando localização...</span>
+                    </div>
+                    <div class="card-body clima-body">
+                        <div class="clima-main">
+                            <span class="temp" id="clima-temp">--°C</span>
+                            <i class="fas fa-sun weather-icon-large" id="clima-icon"></i>
+                        </div>
+                        <div class="clima-details">
+                            <div class="detail-item"><p>Umidade</p><strong id="clima-umidade">--%</strong></div>
+                            <div class="detail-item"><p>Vento</p><strong id="clima-vento">-- km/h</strong></div>
+                            <div class="detail-item"><p>Chuva hoje</p><strong id="clima-chuva">--%</strong></div>
+                        </div>
+                        <div class="alert-box warning" id="clima-alerta">
+                            <i class="fas fa-exclamation-triangle"></i> Aguardando dados de geolocalização...
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dash-card glass-effect">
+                    <div class="card-header">
+                        <h3><i class="fas fa-map-marked-alt"></i> Cotações Regionais (Agrolink)</h3>
+                        <span class="badge" id="agrolink-badge">Pato Branco / Praça Local</span>
+                    </div>
+                    <div class="card-body market-body">
+                        <div class="market-row">
+                            <div class="market-info">
+                                <h4>Soja Disponível</h4>
+                                <p>Saca 60kg</p>
+                            </div>
+                            <div class="market-value">
+                                <span class="price" id="preco-soja">R$ --,--</span>
+                                <span class="var positive" id="var-soja">--%</span>
+                            </div>
+                        </div>
+                        <div class="market-row">
+                            <div class="market-info">
+                                <h4>Milho Seco</h4>
+                                <p>Saca 60kg</p>
+                            </div>
+                            <div class="market-value">
+                                <span class="price" id="preco-milho">R$ --,--</span>
+                                <span class="var negative" id="var-milho">--%</span>
+                            </div>
+                        </div>
+                        <div class="market-row">
+                            <div class="market-info">
+                                <h4>Dólar Comercial</h4>
+                                <p>AwesomeAPI / BCB</p>
+                            </div>
+                            <div class="market-value">
+                                <span class="price" id="preco-dolar">R$ --,--</span>
+                                <span class="var" id="var-dolar">--%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dash-card glass-effect">
+                    <div class="card-header">
+                        <h3><i class="fas fa-globe-americas"></i> NYSE (Bolsa de Nova York)</h3>
+                        <span class="live-indicator"><span class="dot"></span> EM TEMPO REAL</span>
+                    </div>
+                    <div class="card-body nyse-body">
+                        <div class="nyse-item">
+                            <span>S&P 500 (SPX)</span>
+                            <div class="nyse-val">
+                                <strong id="nyse-spx">----</strong>
+                                <span class="var" id="var-spx">--%</span>
+                            </div>
+                        </div>
+                        <div class="nyse-item">
+                            <span>Nasdaq (IXIC)</span>
+                            <div class="nyse-val">
+                                <strong id="nyse-nasdaq">----</strong>
+                                <span class="var" id="var-nasdaq">--%</span>
+                            </div>
+                        </div>
+                        <div class="nyse-item">
+                            <span>Dow Jones (DJI)</span>
+                            <div class="nyse-val">
+                                <strong id="nyse-dji">----</strong>
+                                <span class="var" id="var-dji">--%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="agroai-section glass-effect">
+            <div class="agroai-header">
+                <div class="ai-title">
+                    <i class="fas fa-brain"></i>
+                    <div>
+                        <h3>AgroAI Insights Regionais</h3>
+                        <p>Cruzamento analítico de clima local, mercado físico regional e tendências macroeconômicas</p>
+                    </div>
+                </div>
+                <button id="btn-refresh-ai" class="btn btn-secondary btn-sm"><i class="fas fa-sync-alt"></i> Reavaliar Dados</button>
+            </div>
+            <div class="agroai-body">
+                <p id="ai-insight-text">Analisando coordenadas regionais para traçar recomendações de comercialização e manejo de pragas...</p>
+            </div>
+        </section>
+
+        <section id="graficos" class="charts-section">
+            <h2 class="section-title">Histórico de Mercado & Volatilidade</h2>
+            <div class="charts-grid">
+                <div class="chart-container glass-effect"><canvas id="chartSoja"></canvas></div>
+                <div class="chart-container glass-effect"><canvas id="chartMilho"></canvas></div>
+                <div class="chart-container glass-effect"><canvas id="chartDolar"></canvas></div>
+            </div>
+        </section>
+
+        <section id="noticias-principais" class="news-section">
+            <h2 class="section-title">Canal Rural | Cobertura Especial & Manchetes</h2>
+            
+            <div class="news-portal-layout">
+                <div class="news-highlights" id="canal-rural-highlights">
+                    <p class="loading-text">Buscando as manchetes principais do Canal Rural...</p>
+                </div>
+
+                <div class="news-sidebar">
+                    <h3 class="sidebar-title"><i class="fas fa-bolt"></i> Últimas Canal Rural</h3>
+                    <div id="canal-rural-sidebar-feed" class="sidebar-feed">
+                        <p class="loading-text">Carregando feed complementar...</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="news-grid-secondary" id="canal-rural-grid">
+                </div>
+        </section>
+
+        <section id="feed-cooperativas" class="coop-news-section">
+            <h2 class="section-title">Painel de Cooperativas & Culturas Regionais (PR, SC, RS, SP, MS, MT, GO, MG)</h2>
+            <p class="section-subtitle">Notícias focadas em Soja, Milho, Insumos, Pecuária, Feijão, Laranja, Café e atualizações da Coamo, Agrária, Coopavel, Coperaliança e parceiras.</p>
+            
+            <div class="coop-filters">
+                <button class="filter-btn active" data-filter="todas">Todas as Culturas & Cooperativas</button>
+                <button class="filter-btn" data-filter="soja">Soja & Milho</button>
+                <button class="filter-btn" data-filter="pecuaria">Pecuária</button>
+                <button class="filter-btn" data-filter="cafe">Café, Laranja & Feijão</button>
+                <button class="filter-btn" data-filter="cooperativa">Cooperativas (PR/SC/RS/Sudeste)</button>
+            </div>
+
+            <div class="news-grid-secondary" id="cooperativas-grid-feed">
+                <p class="loading-text">Cruzando dados de feeds corporativos estaduais...</p>
+            </div>
+        </section>
+
+        <section id="problemas" class="management-section">
+            <h2 class="section-title">Manejo Fitossanitário Regional & Soluções</h2>
+            <div class="problems-accordion">
+                <div class="problem-item">
+                    <div class="problem-trigger">
+                        <span><i class="fas fa-bug text-danger"></i> Pragas das Culturas Locais (Percevejo, Cigarrinha do Milho, Broca do Café)</span>
+                        <span class="badge-risk alto">Risco Alto</span>
+                    </div>
+                    <div class="problem-content">
+                        <p><strong>Causas:</strong> Invernos amenos em estados como PR, SP e MG aceleram o desenvolvimento e a sobrevivência de ninfas nas plantações.</p>
+                        <p><strong>Soluções/Manejo:</strong> Monitoramento intensivo, controle biológico direcionado, e respeito rigoroso às janelas de aplicação técnica.</p>
+                    </div>
+                </div>
+                <div class="problem-item">
+                    <div class="problem-trigger">
+                        <span><i class="fas fa-biohazard text-warning"></i> Doenças e Fungos (Ferrugem da Soja / Antracnose)</span>
+                        <span class="badge-risk critico">Crítico</span>
+                    </div>
+                    <div class="problem-content">
+                        <p><strong>Causas:</strong> Microclimas úmidos e com alta nebulosidade em regiões produtoras do Sul e Sudeste.</p>
+                        <p><strong>Soluções/Manejo:</strong> Rotação de princípios ativos químicos, plantio de cultivares com resistência genética e eliminação de plantas guaxas.</p>
+                    </div>
+                </div>
+                <div class="problem-item">
+                    <div class="problem-trigger">
+                        <span><i class="fas fa-cloud-sun text-warning"></i> Estresses Climáticos (Estiagem no Sul / Veranicos no Centro-Oeste)</span>
+                        <span class="badge-risk medio">Risco Médio</span>
+                    </div>
+                    <div class="problem-content">
+                        <p><strong>Causas:</strong> Anomalias térmicas globais e frentes de bloqueio continental nas safras principais.</p>
+                        <p><strong>Soluções/Manejo:</strong> Cobertura permanente de solo (Plantio Direto) para reduzir evapotranspiração e retenção máxima de umidade do solo.</p>
+                    </div>
+                </div>
+                <div class="problem-item">
+                    <div class="problem-trigger">
+                        <span><i class="fas fa-layer-group text-success"></i> Degradação, Compactação e Erosão de Solos</span>
+                        <span class="badge-risk baixo">Risco Baixo</span>
+                    </div>
+                    <div class="problem-content">
+                        <p><strong>Causas:</strong> Manejo intensivo de maquinário pesado sem a devida rotação de culturas de raiz profunda.</p>
+                        <p><strong>Soluções/Manejo:</strong> Integração Lavoura-Pecuária (ILPF), terraceamento de precisão e semeadura de braquiária na entrelinha.</p>
+                    </div>
+                </div>
+                <div class="problem-item">
+                    <div class="problem-trigger">
+                        <span><i class="fas fa-chart-line text-danger"></i> Alta dos Insumos, Fertilizantes e Defensivos</span>
+                        <span class="badge-risk alto">Risco Alto</span>
+                    </div>
+                    <div class="problem-content">
+                        <p><strong>Causas:</strong> Oscilações cambiais drásticas no dólar e custos logísticos de matérias-primas importadas.</p>
+                        <p><strong>Soluções/Manejo:</strong> Compras antecipadas via cooperativas (Coamo, Coopavel, Agrária), barter agrícola e ferramentas de hedge de commodities.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="sustentabilidade" class="sustainability-section">
+            <h2 class="section-title">Sustentabilidade & Práticas ESG no Agronegócio</h2>
+            <div class="cards-services-grid">
+                <div class="service-card glass-effect">
+                    <i class="fas fa-seedling"></i>
+                    <h3>Sistema Plantio Direto</h3>
+                    <p>Proteção da biodiversidade edáfica através da palhada permanente, mitigando emissões de carbono.</p>
+                </div>
+                <div class="service-card glass-effect">
+                    <i class="fas fa-random"></i>
+                    <h3>Rotação de Culturas</h3>
+                    <p>Uso estratégico de culturas alternativas (como feijão e milheto) para quebrar ciclos de pragas regionais.</p>
+                </div>
+                <div class="service-card glass-effect">
+                    <i class="fas fa-spider"></i>
+                    <h3>Manejo Biológico</h3>
+                    <p>Uso massivo de bioinsumos defensivos e macrobiológicos estimulados pelas cooperativas técnicas.</p>
+                </div>
+                <div class="service-card glass-effect">
+                    <i class="fas fa-water"></i>
+                    <h3>Uso Eficiente da Água</h3>
+                    <p>Sistemas de irrigação localizada orientados por sensores de umidade digitais e estações agrometeorológicas.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="tecnologia" class="tech-section">
+            <h2 class="section-title">Inovação Tecnológica & Agricultura 4.0</h2>
+            <div class="tech-container">
+                <div class="tech-item">
+                    <div class="tech-img-placeholder"><i class="fas fa-drone"></i> Drones & Imageamento</div>
+                    <p>Mapeamento de reboleiras de ervas daninhas e aplicação automatizada localizada por telemetria aérea.</p>
+                </div>
+                <div class="tech-item">
+                    <div class="tech-img-placeholder"><i class="fas fa-network-wired"></i> Redes IoT e Sensores</div>
+                    <p>Monitoramento de umidade, condutividade e temperatura do solo em tempo real transmitidos via LoRaWAN.</p>
+                </div>
+                <div class="tech-item">
+                    <div class="tech-img-placeholder"><i class="fas fa-satellite-dish"></i> Sensoriamento Remoto</div>
+                    <p>Acompanhamento de índices de vigor vegetativo (NDVI e NDRE) via satélites de alta resolução temporal.</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="main-footer">
+        <div class="footer-content">
+            <p>&copy; 2026 SmartAgro Enterprise. Todos os direitos reservados.</p>
+            <p class="sources">Fontes de dados integradas em tempo real e consolidadas: <span>Canal Rural, Agrolink, BASF, Syngenta, The AgriBiz, Copagril, Coopavel, Coamo, Agrária, Coperaliança, Banco Central do Brasil, Twelve Data, Open-Meteo.</span></p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
